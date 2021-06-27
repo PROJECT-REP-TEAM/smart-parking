@@ -13,6 +13,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * 启动类
  * @author 小柒2012
+ * 支付申请地址：https://dwz.cn/mPQmSPss
+ * 国内领先的支付管理平台：https://paycloud.vip
  */
 @EnableAsync
 @EnableCaching
