@@ -25,7 +25,7 @@ var vm = new Vue({
 	el:'#app',
 	data:{
     	user:{
-    		userId:-1,
+    		userId:null,
     		roleIdList:[]
     	},
         data: [],
@@ -75,7 +75,7 @@ var vm = new Vue({
             this.setTargetKeys();
         },
         acceptClick: function(dialog) {
-        	dialog.user.roleIdList = vm.targetKeys;
+        	dialog.entity.roleIdList = vm.targetKeys;
         	var chooseRoleName = '';
         	vm.roleList.forEach(function(element) {
         		console.log(this.targetKeys)

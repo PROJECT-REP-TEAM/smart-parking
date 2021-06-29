@@ -134,8 +134,8 @@ var vm = new Vue({
                 width: '60%',
                 height: '80%',
                 success : function(dialog) {
-                    dialog.vm.entity.userId = that.entity.userId;
-		        	dialog.vm.entity.roleIdList = that.entity.roleIdList;
+                    dialog.vm.user.userId = that.entity.userId;
+		        	dialog.vm.user.roleIdList = that.entity.roleIdList;
 		        	dialog.vm.setTargetKeys();
                 },
                 yes : function(dialog) {
