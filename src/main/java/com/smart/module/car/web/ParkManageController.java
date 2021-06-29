@@ -1,9 +1,13 @@
 package com.smart.module.car.web;
 
 import com.smart.common.model.Result;
+import com.smart.common.util.OrderUtils;
 import com.smart.module.car.entity.CarParkManage;
 import com.smart.module.car.repository.ParkManageRepository;
 import com.smart.module.car.service.ParkManageService;
+import com.smart.module.pay.entity.AppPayConfig;
+import com.smart.module.pay.repository.PayConfigRepository;
+import com.yungouos.pay.merge.MergePay;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,8 @@ public class ParkManageController {
     private ParkManageService parkManageService;
     @Autowired
     private ParkManageRepository parkManageRepository;
+    @Autowired
+    private PayConfigRepository payConfigRepository;
 
     /**
      * 列表
@@ -78,4 +84,15 @@ public class ParkManageController {
         return Result.ok(list);
     }
 
+    /**
+     * 生成支付码
+     */
+    @PostMapping("/createPay")
+    public Result createPay(Long carParkId){
+        AppPayConfig config = payConfigRepository.findByCarParkId(carParkId);
+        MergePay.nativePay(OrderUtils.getOrderNo(),"100",
+                config.getMchId(),"停车收费","","","","",
+                "","","",config.getSecretKey());
+        return Result.ok();
+    }
 }
