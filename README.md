@@ -39,9 +39,6 @@ JDK1.8、Maven、Mysql、IntelliJ IDEA、payCloud
 
 - 停车场管理：停车场管理
 
-#### 智能停车
-
-
 #### 安装教程
 
 - 启动前请配置 `application-dev.properties` 中相关`mysql` 以及非启动强依赖百度人工智能。
