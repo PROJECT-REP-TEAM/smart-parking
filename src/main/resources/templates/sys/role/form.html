@@ -44,11 +44,7 @@ var vm = new Vue({
                         param : vm.role,
                         json:true,
                         success : function(result) {
-                            // vm.okLayer.msg.greenTick(result.msg)
-                            // dialog.load();
-                            okLayer.msg.greenTick(result.msg, function () {
-                                vm.load();
-                            });
+                            okLayer.msg.greenTick(result.msg)
                             dialog.load();
                         }
                     });

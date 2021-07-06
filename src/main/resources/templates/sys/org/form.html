@@ -70,9 +70,8 @@ var vm = new Vue({
                     param : vm.org,
                     json:true,
                     success : function(result) {
-                         vm.okLayer.msg.greenTick(result.msg)
+                         vm.okLayer.msg.greenTick(result.msg);
                          dialog.load();
-                         dialog.tree();
                     }
                 });
             }
