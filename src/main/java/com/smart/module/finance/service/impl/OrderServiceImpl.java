@@ -73,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
         dataMap.put("type", ExcelExport.CELL_ALIGN_LEFT);
         dataMap.put("total_Fee", ExcelExport.CELL_ALIGN_LEFT);
         dataMap.put("gmt_create", ExcelExport.CELL_ALIGN_LEFT);
-        String nativeSql = "SELECT plate_number,(CASE TYPE WHEN 0 THEN '微信' WHEN 1 THEN '支付宝'  ELSE '其它' END) type,total_Fee,gmt_create FROM app_order WHERE 1=1";
+        String nativeSql = "SELECT plate_number,(CASE TYPE WHEN 0 THEN '微信' WHEN 1 THEN '支付宝' WHEN 2 THEN 'APPLE PAY' WHEN 3 THEN 'HUAWEI PAY' ELSE '其它' END) type,total_Fee,gmt_create FROM app_order WHERE 1=1";
         List<Map<String, Object>> list;
         if(ShiroUtils.isHasRole(SystemConstant.ROLE_ADMIN)){
             if(orgId!=null){
