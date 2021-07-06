@@ -57,8 +57,8 @@ layui.use(["element","okUtils", "table", "countUp"], function () {
                 {
                     name: '订单数',
                     type: 'bar',
-                    barWidth: '50%',
-                    data: [200, 50, 150]
+                    barWidth: '25%',
+                    data: []
                 }
             ]
         };
@@ -67,12 +67,14 @@ layui.use(["element","okUtils", "table", "countUp"], function () {
             param:{'type':'payTypeStatistics'},
             async:true,
             success : function(result) {
-                option.series[0].data = result.msg;
-                var array = [];
+                var array1 = [];
+                var array2 = [];
                 result.msg.forEach(function(entity){
-                    array.push(entity.name);
-                })
-                option.xAxis[0].data = array;
+                    array1.push(entity.name);
+                    array2.push(entity.data);
+                });
+                option.xAxis[0].data = array1;
+                option.series[0].data = array2;
                 myChart.setOption(option);
                 okUtils.echartsResize([myChart]);
             }
@@ -84,64 +86,34 @@ layui.use(["element","okUtils", "table", "countUp"], function () {
         var userSourceOption = {
             title: {text: ""},
             tooltip: {trigger: "axis", axisPointer: {type: "cross", label: {backgroundColor: "#6a7985"}}},
-            legend: {data: ["支付宝", "微信"]},
+            legend: {data: []},
             toolbox: {feature: {saveAsImage: {}}},
             grid: {left: "3%", right: "4%", bottom: "3%", containLabel: true},
-            xAxis: [{type: "category", boundaryGap: false, data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]}],
+            xAxis: [{type: "category", boundaryGap: false, data: []}],
             yAxis: [{type: "value",minInterval: 1}],
             series: [
-                {name: "支付宝", type: "line", stack: "总量", areaStyle: {}, data: [120, 132, 101, 134, 90, 230, 210]},
-                {name: "微信", type: "line", stack: "总量", areaStyle: {}, data: [220, 182, 191, 234, 290, 330, 310]},
             ]
         };
-        var myDate = new Date();
-        var year = myDate.getFullYear();
-        myDate.setDate(myDate.getDate() - 7);
-        var dateArray = [];
-        var flag = 1;
-        for (var i = 0; i < 7; i++) {
-            var day = myDate.getDate();
-            day = day>9?day:"0"+day;
-            dateArray.push(year +"-"+(myDate.getMonth()+1)+"-"+day);
-            myDate.setDate(myDate.getDate() + flag);
-        }
-        userSourceOption.xAxis[0].data = dateArray;
         okUtils.ajaxCloud({
             url:"/sys/interface/query",
-            param:{'type':'ali7Pay'},
+            param:{'type':'total7Pay'},
             async:false,
             success : function(result) {
-                var ali7Pay = result.msg;
-                var ali7Data = [];
-                for(var i=0;i<7;i++){
-                   var data = 0.00;
-                   for(var j=0;j<ali7Pay.length;j++){
-                        if(dateArray[i]==ali7Pay[j][0]){
-                            data = ali7Pay[j][1]
-                        }
-                   }
-                   ali7Data[i] = data;
-                }
-                userSourceOption.series[0].data = ali7Data;
-            }
-        });
-        okUtils.ajaxCloud({
-            url:"/sys/interface/query",
-            param:{'type':'wx7Pay'},
-            async:false,
-            success : function(result) {
-                var wx7Pay = result.msg;
-                var wx7Data = [];
-                for(var i=0;i<7;i++){
-                   var data = 0.00;
-                   for(var j=0;j<wx7Pay.length;j++){
-                        if(dateArray[i]==wx7Pay[j][0]){
-                            data = wx7Pay[j][1]
-                        }
-                   }
-                   wx7Data[i] = data;
-                }
-                userSourceOption.series[1].data = wx7Data;
+                var dataMap = {};
+                result.msg.forEach(function(entity){
+                    if (dataMap.hasOwnProperty(entity.payType)) {
+                        dataMap[entity.payType].data.push(entity.amount)
+                    } else {
+                        userSourceOption.legend.data.push(entity.payType);
+                        dataMap[entity.payType] = {name: entity.payType, type: "line", stack: "总量", areaStyle: {}, data: [entity.amount]}
+                    }
+
+                    if (userSourceOption.xAxis[0].data.indexOf(entity.date) < 0) {
+                        userSourceOption.xAxis[0].data.push(entity.date);
+                    }
+                });
+                userSourceOption.series = Object.values(dataMap);
+                console.log(userSourceOption);
                 var userSourceMap = echarts.init($("#lately7Day")[0], "theme");
                 userSourceMap.setOption(userSourceOption);
                 okUtils.echartsResize([userSourceMap]);

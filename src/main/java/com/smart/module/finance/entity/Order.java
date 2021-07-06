@@ -44,7 +44,7 @@ public class Order extends PageBean implements Serializable {
     private BigDecimal totalFee;
 
     /**
-     * 支付类型 0：微信  1：支付宝
+     * 支付类型 0：微信  1：支付宝  2: Apple Pay  3: HUAWEI pay
      */
     @Column(name = "type", length = 4)
     private Short type;
