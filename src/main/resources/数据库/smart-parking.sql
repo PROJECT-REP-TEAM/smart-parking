@@ -47,7 +47,7 @@ CREATE TABLE `app_car_manage` (
 -- Records of app_car_manage
 -- ----------------------------
 BEGIN;
-INSERT INTO `app_car_manage` VALUES (1, '1', '2021-04-11 21:58:50', '2021-04-19 19:49:35', NULL, '212112', 36, '青岛海信', 2, '海克斯康', '2121', '212121', NULL, 1, 1, NULL, '2021-04-26 00:00:00', '17762018584');
+INSERT INTO `app_car_manage` VALUES (1, '1', '2021-04-11 21:58:50', '2021-04-19 19:49:35', NULL, '212112', 36, '青岛海信', 2, '爪哇笔记', '2121', '212121', NULL, 1, 1, NULL, '2021-04-26 00:00:00', '17762018584');
 COMMIT;
 
 -- ----------------------------
@@ -75,7 +75,7 @@ CREATE TABLE `app_car_park_manage` (
 -- Records of app_car_park_manage
 -- ----------------------------
 BEGIN;
-INSERT INTO `app_car_park_manage` VALUES (2, 60, '2021-03-27 21:52:08', '2021-03-27 21:52:08', 100.00, '海克斯康', 36, '青岛海信', 12, 1, 30, 5.00, NULL);
+INSERT INTO `app_car_park_manage` VALUES (2, 60, '2021-03-27 21:52:08', '2021-03-27 21:52:08', 100.00, '爪哇笔记', 36, '青岛海信', 12, 1, 30, 5.00, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -101,7 +101,7 @@ CREATE TABLE `app_car_parking_record` (
 -- Records of app_car_parking_record
 -- ----------------------------
 BEGIN;
-INSERT INTO `app_car_parking_record` VALUES (1, NULL, '2021-04-19 21:43:41', NULL, 36, '青岛海信', 2, '海克斯康', '苏E05EV8', 2, NULL);
+INSERT INTO `app_car_parking_record` VALUES (1, NULL, '2021-04-19 21:43:41', NULL, 36, '青岛海信', 2, '爪哇笔记', '苏E05EV8', 2, NULL);
 COMMIT;
 
 -- ----------------------------
