@@ -5,6 +5,10 @@
 <div class="ok-body" id="app" v-cloak>
     <template>
         <i-form label-colon ref="checkForm" :model="entity" :rules="ruleValidate" :label-width="140">
+            <form-item prop="mchId" label="支付申请">
+                https://dwz.cn/mPQmSPss
+            </form-item>
+
             <form-item prop="mchId" label="商户号">
                 <i-input  maxlength="20" v-model="entity.mchId" placeholder="请输入商户号"></i-input>
             </form-item>
