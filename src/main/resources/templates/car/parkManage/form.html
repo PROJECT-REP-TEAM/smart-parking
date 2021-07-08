@@ -23,10 +23,10 @@
                 <input-number   v-model="entity.timeUnit" placeholder="请输入计时单元"></input-number>
             </form-item>
             <form-item prop="unitCost" label="单元费用">
-                <input-number   v-model="entity.unitCost" placeholder="请输入计时单元"></input-number>
+                <i-input v-model="entity.unitCost" placeholder="请输入计时单元"></i-input>
             </form-item>
             <form-item prop="maxMoney" label="最大收费金额">
-                <input-number   v-model="entity.maxMoney" placeholder="请输入最大收费金额"></input-number>
+                <i-input v-model="entity.maxMoney" placeholder="请输入最大收费金额"></i-input>
             </form-item>
             <form-item label="状态">
                 <radio-group  v-model="entity.status">
@@ -67,11 +67,14 @@ var vm = new Vue({
 				{ required: true, message: '不能为空', trigger: 'blur',type: 'number'}
 			],
 			unitCost: [
-				{ required: true, message: '不能为空', trigger: 'blur',type: 'number'}
+				{ required: true, message: '不能为空', trigger: 'blur'},
+                { type: 'string', pattern:/^\d+(\.\d{0,2})?$/, message: '必须是数字, 最多保留两位小数', trigger: 'blur'}
 			],
 			maxMoney: [
-				{ required: true, message: '不能为空', trigger: 'blur',type: 'number'}
-			],
+				{ required: true, message: '不能为空', trigger: 'blur'},
+                { type: 'string', pattern:/^\d+(\.\d{0,2})?$/, message: '必须是数字, 最多保留两位小数', trigger: 'blur'}
+
+            ],
 			orgName: [
 				{ required: true, message: '请选择机构', trigger: 'change' }
 			]
