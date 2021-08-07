@@ -103,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
         String description = entity.getDescription();
         String commonSql = " WHERE 1=1";
         if(StringUtils.isNotBlank(description)){
-            commonSql += "AND body like '"+description+"%' ";
+            commonSql += " AND (body like '"+description+"%' OR plate_number like  '"+description+"%')";
         }
         if(ShiroUtils.isHasRole(SystemConstant.ROLE_ADMIN)){
             if(entity.getOrgId()!=null){
