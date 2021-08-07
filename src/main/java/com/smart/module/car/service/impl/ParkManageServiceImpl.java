@@ -16,15 +16,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class ParkManageServiceImpl implements ParkManageService {
 
-    @Autowired
+    @Resource
     private DynamicQuery dynamicQuery;
-    @Autowired
+    @Resource
     private ParkManageRepository parkManageRepository;
 
     @Override

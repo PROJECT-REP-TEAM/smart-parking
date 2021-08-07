@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ClassUtils;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,9 +33,9 @@ import java.util.Map;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
+    @Resource
     private OrderRepository orderRepository;
-    @Autowired
+    @Resource
     private DynamicQuery dynamicQuery;
 
 

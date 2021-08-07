@@ -11,12 +11,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class SysLogServiceImpl implements SysLogService {
 
-    @Autowired
+    @Resource
     private DynamicQuery dynamicQuery;
 
     @Override

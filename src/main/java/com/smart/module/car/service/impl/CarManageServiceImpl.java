@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ClassUtils;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,11 +35,11 @@ import java.util.Map;
 @Service
 public class CarManageServiceImpl implements CarManageService {
 
-    @Autowired
+    @Resource
     private DynamicQuery dynamicQuery;
-    @Autowired
+    @Resource
     private CarManageRepository carManageRepository;
-    @Autowired
+    @Resource
     private OrderService orderService;
 
     @Override
