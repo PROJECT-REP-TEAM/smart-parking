@@ -58,6 +58,7 @@ public class ShiroConfig {
          * 登录注册
          */
         filterChainDefinitionMap.put("/login.html","anon");
+        filterChainDefinitionMap.put("/sys/**","anon");
         filterChainDefinitionMap.put("/sys/logout","anon");
         filterChainDefinitionMap.put("/sys/login","anon");
         filterChainDefinitionMap.put("/sys/captcha","anon");

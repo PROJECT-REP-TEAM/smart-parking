@@ -13,25 +13,6 @@
 </div>
 <div th:replace="common/foot :: foot(jquery、tree)"></div>
 <script th:inline="none">
-var setting = {
-    data : {
-        simpleData : {
-            enable : true,
-            idKey : "orgId",
-            pIdKey : "parentId",
-            rootPId : "0"
-        },
-        key : {
-            url : "nourl"
-        }
-    },
-    callback : {
-        onClick : function(event, treeId, treeNode) {
-            vm.parentId = treeNode.orgId;
-            vm.parentName = treeNode.name;
-        }
-    }
-};
 var vm = new Vue({
     el: '#app',
     data:{
@@ -58,7 +39,7 @@ var vm = new Vue({
 	    }
     },
     created: function() {
-        var that = this;
+        let that = this;
         layui.use(["okUtils", "okLayer"], function () {
              that.okUtils = layui.okUtils;
              that.okLayer = layui.okLayer;
@@ -66,6 +47,25 @@ var vm = new Vue({
         });
     }
 });
+var setting = {
+    data: {
+        simpleData: {
+            enable: true,
+            idKey: "orgId",
+            pIdKey: "parentId",
+            rootPId: "0"
+        },
+        key: {
+            url: "nourl"
+        }
+    },
+    callback: {
+        onClick: function (event, treeId, treeNode) {
+            vm.parentId = treeNode.orgId;
+            vm.parentName = treeNode.name;
+        }
+    }
+};
 </script>
 </body>
 </html>

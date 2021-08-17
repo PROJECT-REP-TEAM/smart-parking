@@ -14,7 +14,7 @@
             <form-item prop="fullName" label="单位全称">
                 <i-input maxlength="50" v-model="org.fullName"  placeholder="请输入单位全称"></i-input>
             </form-item>
-            <form-item  v-if="org.parentId!=0" prop="url" label="上级单位">
+            <form-item  v-show="org.parentId!=0" prop="url" label="上级单位">
                 <span @click="selectOrg()">
                     <i-input readonly maxlength="20" v-model="org.parentName" ></i-input>
                 </span>
@@ -41,64 +41,75 @@
 </div>
 <div th:replace="common/foot :: foot(script)"></div>
 <script th:inline="none">
-var vm = new Vue({
-    el: '#app',
-    data:{
-        org:{
-            status:1,
-            parentName:'',
-            parentId:null
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            org: {
+                status: 1,
+                parentName: '',
+                parentId: null
+            },
+            statusList: [{"label": "正常", "value": 1}, {"label": "禁用", "value": 0}],
+            ruleValidate: {
+                code: [
+                    {required: true, message: '代码不能为空', trigger: 'blur'}
+                ],
+                name: [
+                    {required: true, message: '名称不能为空', trigger: 'blur'}
+                ]
+            },
+            okUtils: null,
+            okLayer: null
         },
-        statusList:[{"label":"正常","value":1},{"label":"禁用","value":0}],
-        ruleValidate : {
-			code: [
-				{ required: true, message: '角色代码不能为空', trigger: 'blur' }
-			],
-			name: [
-				{ required: true, message: '角色名称不能为空', trigger: 'blur' }
-			]
-		},
-		okUtils:null,
-		okLayer:null
-    },
-    methods: {
-        acceptClick : function(dialog){
-          vm.$refs.checkForm.validate(function(valid){
-            if (valid) {
-                 vm.okUtils.ajaxCloud({
-                    url:"/sys/org/save",
-                    param : vm.org,
-                    json:true,
-                    success : function(result) {
-                         vm.okLayer.msg.greenTick(result.msg);
-                         dialog.load();
+        methods: {
+            acceptClick: function (dialog) {
+                vm.$refs.checkForm.validate(function (valid) {
+                    if (valid) {
+                        vm.okUtils.ajaxCloud({
+                            url: "/sys/org/save",
+                            param: vm.org,
+                            json: true,
+                            success: function (result) {
+                                vm.okLayer.msg.greenTick(result.msg);
+                                dialog.load();
+                            }
+                        });
                     }
                 });
-            }
-          });
-	    },
-	    selectOrg:function(){
-	        vm.okUtils.dialogOpen({
-	            id:"selectIcon",
-                title: '选择',
-                url: "sys/org/org.html",
-                scroll : true,
-                width: '300px',
-                height: '500px',
-                yes : function(dialog) {
-                    dialog.vm.acceptClick(vm);
-                }
-            });
-	    }
-    },
-    created: function() {
-        var that = this;
-        layui.use(["okUtils", "okLayer"], function () {
-             that.okUtils = layui.okUtils;
-             that.okLayer = layui.okLayer;
-        });
-    }
-});
+            },
+            selectOrg: function () {
+                vm.okUtils.dialogOpen({
+                    id: "selectIcon",
+                    title: '选择',
+                    url: "sys/org/org.html",
+                    scroll: true,
+                    width: '300px',
+                    height: '500px',
+                    yes: function (dialog) {
+                        dialog.vm.acceptClick(vm);
+                    }
+                });
+            },
+            load: function () {
+                let that = this;
+                layui.use(["okUtils", "okLayer"], function () {
+                    that.okUtils = layui.okUtils;
+                    that.okLayer = layui.okLayer;
+                    vm.okUtils.ajaxCloud({
+                        url: "/sys/org/getById",
+                        param: {id:vm.org.parentId},
+                        close: false,
+                        success: function (result) {
+                            vm.org.parentName = result.msg.name;
+                        }
+                    });
+                });
+            },
+        },
+        created: function () {
+
+        }
+    });
 </script>
 </body>
 </html>

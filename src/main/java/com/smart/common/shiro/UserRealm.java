@@ -1,8 +1,8 @@
 package com.smart.common.shiro;
 
 import com.smart.common.util.ShiroUtils;
-import com.smart.module.sys.entity.SysUser;
-import com.smart.module.sys.service.SysUserService;
+import com.smart.module.sys.entity.User;
+import com.smart.module.sys.service.IUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Lazy;
 import java.util.HashSet;
 import java.util.List;
 
+
 /**
  * 用户认证
  * 爪哇笔记：https://blog.52itstyle.vip
@@ -23,7 +24,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Autowired
     @Lazy
-    private SysUserService userService;
+    private IUserService userService;
 
     /**
      * 获取授权
@@ -52,7 +53,7 @@ public class UserRealm extends AuthorizingRealm {
             throws AuthenticationException {
         String username = (String) authenticationToken.getPrincipal();
         String password = new String((char[]) authenticationToken.getCredentials());
-        SysUser user = userService.getUser(username);
+        User user = userService.getUser(username);
         if (user == null) {
             throw new UnknownAccountException("账户不存在");
         }

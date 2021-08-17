@@ -1,5 +1,7 @@
 package com.smart.common.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +12,19 @@ import java.util.List;
  */
 public class PageBean<T> {
 
+    @TableField(exist = false)
     private List<T> pageData = new ArrayList<>();
+    @TableField(exist = false)
     private Integer pageSize = Integer.valueOf(10);
+    @TableField(exist = false)
     private Integer pageNo = Integer.valueOf(1);
+    @TableField(exist = false)
     private Long totalCount = 0L;
+    @TableField(exist = false)
     private String description;
+    @TableField(exist = false)
     private String beginTime;
+    @TableField(exist = false)
     private String endTime;
 
     public PageBean(List<T> pageData, Long totalCount) {

@@ -26,12 +26,12 @@
 <div th:replace="common/foot :: foot(script)"></div>
 <script th:inline="none">
 layui.use(["okUtils", "okLayer"], function () {
-    var okUtils = layui.okUtils;
-    var okLayer = layui.okLayer;
-    var vm = new Vue({
+    let okUtils = layui.okUtils;
+    let okLayer = layui.okLayer;
+    let vm = new Vue({
         el: '#app',
         data: function(){
-        var that = this;
+        let that = this;
 		return {
             tableTitle : [{
                 title: '序号',
@@ -40,15 +40,15 @@ layui.use(["okUtils", "okLayer"], function () {
                     return h('span', params.index + (that.config.pageNo- 1) * that.config.pageSize + 1);
                 }
             },{
-                key : "key",
+                key : "configKey",
                 title : "配置键",
                 minWidth:100
             },{
-                key : "value",
+                key : "configValue",
                 title : "配置值",
                 minWidth:200
             },{
-                key : "remark",
+                key : "configRemark",
                 title : "配置备注",
                 minWidth:100
             },{
@@ -56,7 +56,7 @@ layui.use(["okUtils", "okLayer"], function () {
                 title : "状态",
                 minWidth:50,
                 render: function(h, params) {
-                    var status = params.row.status;
+                    let status = params.row.status;
                     if(status==1){
                         return h('span','正常' );
                     }else{
@@ -86,13 +86,13 @@ layui.use(["okUtils", "okLayer"], function () {
         },
         methods: {
             load : function() {
-                var that = this;
+                let that = this;
                 okUtils.ajaxCloud({
                     url:"/sys/config/list",
                     param : that.config,
                     success : function(result) {
-                         that.tableData = result.msg.pageData;
-                         that.tableSize = result.msg.totalCount;
+                        that.tableData = result.msg.records;
+                        that.tableSize = result.msg.total;
                     }
                 });
             },
@@ -143,9 +143,8 @@ layui.use(["okUtils", "okLayer"], function () {
                         url:"/sys/config/delete",
                         param : {id: config.id},
                         success : function(result) {
-                            okLayer.msg.greenTick(result.msg, function () {
-                                  vm.load();
-                            })
+                            okLayer.msg.greenTick(result.msg);
+                            vm.load();
                         }
                     });
                  })

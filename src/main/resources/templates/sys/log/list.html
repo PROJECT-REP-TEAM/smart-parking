@@ -21,12 +21,12 @@
 <div th:replace="common/foot :: foot(script)"></div>
 <script th:inline="none">
 layui.use(["okUtils", "okLayer"], function () {
-    var okUtils = layui.okUtils;
-    var okLayer = layui.okLayer;
-    var vm = new Vue({
+    let okUtils = layui.okUtils;
+    let okLayer = layui.okLayer;
+    let vm = new Vue({
         el: '#app',
         data: function(){
-        var that = this;
+        let that = this;
 		return {
             tableTitle : [{
                 title: '序号',
@@ -62,13 +62,13 @@ layui.use(["okUtils", "okLayer"], function () {
         },
         methods: {
             load : function() {
-                var that = this;
+                let that = this;
                 okUtils.ajaxCloud({
                     url:"/sys/log/list",
                     param : that.log,
                     success : function(result) {
-                         that.tableData = result.msg.pageData;
-                         that.tableSize = result.msg.totalCount;
+                        that.tableData = result.msg.records;
+                        that.tableSize = result.msg.total;
                     }
                 });
             },

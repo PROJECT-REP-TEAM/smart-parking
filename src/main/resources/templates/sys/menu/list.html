@@ -43,8 +43,8 @@
     </div>
 <div th:replace="common/foot :: foot(jquery、tree)"></div>
 <script th:inline="none">
-var ztree;
-var setting = {
+let ztree;
+let setting = {
     edit: {
         enable: true,
         showRenameBtn:false,
@@ -76,7 +76,7 @@ var setting = {
             vm.load();
         },
         beforeDrag:function (treeId, treeNodes) {
-            for (var i=0,l=treeNodes.length; i<l; i++) {
+            for (let i=0,l=treeNodes.length; i<l; i++) {
                 if (treeNodes[i].drag === false) {
                     return false;
                 }
@@ -91,8 +91,8 @@ var setting = {
             }
         },
         onDrop:function (event, treeId, treeNodes, targetNode,moveType) {
-            var menuId = treeNodes[0].menuId;
-            var parentId = targetNode.menuId;
+            let menuId = treeNodes[0].menuId;
+            let parentId = targetNode.menuId;
             vm.okUtils.ajaxCloud({
                 url:"/sys/menu/drop",
                 param : {menuId:menuId,parentId:parentId},
@@ -103,7 +103,7 @@ var setting = {
         }
     }
 };
-var vm = new Vue({
+let vm = new Vue({
     el: '#app',
     data: {
         okUtils:null,
@@ -129,7 +129,7 @@ var vm = new Vue({
             title : "类型",
             minWidth:50,
             render : function(h, params) {
-                var type = "目录";
+                let type = "目录";
                 if(params.row.type==1){
                     type = "菜单";
                 }else if(params.row.type==2){
@@ -244,16 +244,15 @@ var vm = new Vue({
                     url:"/sys/menu/delete",
                     param : {menuId: menu.menuId},
                     success : function(result) {
-                        vm.okLayer.msg.greenTick(result.msg, function () {
-                             vm.load();
-                        });
+                        vm.okLayer.msg.greenTick(result.msg);
+                        vm.load();
                     }
                 });
             });
         }
     },
     created: function() {
-        var that = this;
+        let that = this;
         layui.use(["okUtils", "okLayer"], function () {
              that.okUtils = layui.okUtils;
              that.okLayer = layui.okLayer;

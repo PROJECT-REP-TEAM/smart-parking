@@ -1,6 +1,6 @@
 package com.smart.common.util;
 
-import com.smart.module.sys.entity.SysUser;
+import com.smart.module.sys.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -19,8 +19,8 @@ public class ShiroUtils {
 		return SecurityUtils.getSubject();
 	}
 
-	public static SysUser getUserEntity() {
-		return (SysUser)SecurityUtils.getSubject().getPrincipal();
+	public static User getUserEntity() {
+		return (User)SecurityUtils.getSubject().getPrincipal();
 	}
 
 	public static Long getUserId() {
