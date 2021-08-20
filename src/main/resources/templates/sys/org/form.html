@@ -72,6 +72,7 @@
                             success: function (result) {
                                 vm.okLayer.msg.greenTick(result.msg);
                                 dialog.load();
+                                dialog.tree();
                             }
                         });
                     }
@@ -91,23 +92,22 @@
                 });
             },
             load: function () {
-                let that = this;
-                layui.use(["okUtils", "okLayer"], function () {
-                    that.okUtils = layui.okUtils;
-                    that.okLayer = layui.okLayer;
-                    vm.okUtils.ajaxCloud({
-                        url: "/sys/org/getById",
-                        param: {id:vm.org.parentId},
-                        close: false,
-                        success: function (result) {
-                            vm.org.parentName = result.msg.name;
-                        }
-                    });
+                vm.okUtils.ajaxCloud({
+                    url: "/sys/org/getById",
+                    param: {id:vm.org.parentId},
+                    close: false,
+                    success: function (result) {
+                        vm.org.parentName = result.msg.name;
+                    }
                 });
             },
         },
         created: function () {
-
+            let that = this;
+            layui.use(["okUtils", "okLayer"], function () {
+                that.okUtils = layui.okUtils;
+                that.okLayer = layui.okLayer;
+            });
         }
     });
 </script>

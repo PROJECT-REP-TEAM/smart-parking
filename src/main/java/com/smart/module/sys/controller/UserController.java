@@ -70,8 +70,7 @@ public class UserController {
     @PostMapping("/delete")
     @RequiresRoles("admin")
     public Result delete(Long userId){
-        userService.removeById(userId);
-        return Result.ok();
+        return userService.deleteById(userId);
     }
 
     /**

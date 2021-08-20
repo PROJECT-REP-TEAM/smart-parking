@@ -88,4 +88,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
             });
         }
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result deleteById(Long roleId) {
+        roleMapper.deleteById(roleId);
+        QueryWrapper query = new QueryWrapper<>().eq("role_id",roleId);
+        roleMenuMapper.delete(query);
+        return Result.ok("删除成功");
+    }
 }

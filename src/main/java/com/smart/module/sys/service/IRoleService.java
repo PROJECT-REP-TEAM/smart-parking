@@ -27,4 +27,6 @@ public interface IRoleService extends IService<Role> {
     void saveMenu(Role role);
 
     void saveOrg(Role role);
+
+    Result deleteById(Long roleId);
 }

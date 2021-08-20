@@ -63,8 +63,7 @@ public class MenuController {
     @PostMapping("/delete")
     @RequiresRoles("admin")
     public Result delete(Long menuId){
-        menuService.removeById(menuId);
-        return Result.ok("删除成功");
+        return menuService.deleteById(menuId);
     }
 
 

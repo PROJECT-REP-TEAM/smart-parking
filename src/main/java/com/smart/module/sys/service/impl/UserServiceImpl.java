@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.smart.common.model.Result;
 import com.smart.module.sys.entity.User;
+import com.smart.module.sys.mapper.RoleMenuMapper;
 import com.smart.module.sys.mapper.UserMapper;
 import com.smart.module.sys.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -52,5 +53,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public List<String> listUserPerms(Long userId) {
         return userMapper.listUserPerms(userId);
+    }
+
+    @Override
+    public Result deleteById(Long userId) {
+        userMapper.deleteById(userId);
+        //QueryWrapper query = new QueryWrapper<>().eq("id",userId);
+       // roleMenuMapper.delete(query);
+        return Result.ok("删除成功");
     }
 }

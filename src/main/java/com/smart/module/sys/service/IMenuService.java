@@ -24,4 +24,6 @@ public interface IMenuService extends IService<Menu> {
     List<Menu> select(Long parentId);
 
     List<Menu> getByUserId(Long userId);
+
+    Result deleteById(Long menuId);
 }

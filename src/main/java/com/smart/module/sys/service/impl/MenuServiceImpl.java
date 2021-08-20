@@ -5,12 +5,15 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.smart.common.model.Result;
 import com.smart.module.sys.entity.Menu;
+import com.smart.module.sys.entity.Role;
 import com.smart.module.sys.entity.User;
 import com.smart.module.sys.mapper.MenuMapper;
+import com.smart.module.sys.mapper.RoleMenuMapper;
 import com.smart.module.sys.mapper.UserMapper;
 import com.smart.module.sys.service.IMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -28,6 +31,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
     @Resource
     private MenuMapper menuMapper;
+    @Resource
+    private RoleMenuMapper roleMenuMapper;
 
     @Override
     public Result listPage(Menu menu) {
@@ -63,5 +68,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             menu.setList(subList);
         });
         return list;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result deleteById(Long menuId) {
+        menuMapper.deleteById(menuId);
+        QueryWrapper query = new QueryWrapper<>().eq("menu_id",menuId);
+        roleMenuMapper.delete(query);
+        return Result.ok("删除成功");
     }
 }

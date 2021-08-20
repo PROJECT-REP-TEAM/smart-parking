@@ -232,6 +232,7 @@ let vm = new Vue({
                         vm.menu.type = menu.type + 1;
                     }
                     dialog.vm.menu = JSON.parse(JSON.stringify(vm.menu));
+                    dialog.vm.menu.orderNum = vm.tableData.length;
                 },
                 yes : function(dialog) {
                     dialog.vm.acceptClick(vm);

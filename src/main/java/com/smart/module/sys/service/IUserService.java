@@ -23,4 +23,6 @@ public interface IUserService extends IService<User> {
     List<String> listUserRoles(Long userId);
 
     List<String> listUserPerms(Long userId);
+
+    Result deleteById(Long userId);
 }
